@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style1.css">
+    <link rel="stylesheet" href=".css/style2.css">
+</head>
+<body>
+    <h1> This the Main Home page..</h1>
+
+
+
+
+
+</form>
+</body>
+</html>

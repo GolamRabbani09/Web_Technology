@@ -1,29 +1,37 @@
+
 <?php
+session_start();
 include ("../models/db.php");
 
 if (isset($_POST["submit"])) {
-    // Get email and password from POST data
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    
-    // Validate inputs
-    if(empty($email) || empty($password)) {
-        echo "Email and password are required";
+    try {
+        $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
+        $password = $_POST["password"];
+        
+        if(empty($email) || empty($password)) {
+            throw new Exception("Email and password are required");
+        }
+        
+        $conn = createConObject();
+        $result = checkLogin($conn, $email, $password);
+        
+        if (mysqli_num_rows($result) > 0) {
+            $_SESSION['email'] = $email;
+            $_SESSION['success'] = "Login successful!";
+            header("Location: ../views/Admin_Home.php");
+            exit();
+        } else {
+            throw new Exception("Invalid email or password");
+        }
+    } catch (Exception $e) {
+        $_SESSION['error'] = $e->getMessage();
+        header("Location: ../views/login.php");
         exit();
+    } finally {
+        if (isset($conn)) {
+            mysqli_close($conn);
+        }
     }
-    
-    $conn = createConObject();
-    $result = checkLogin($conn, $email, $password);
-    
-    if (mysqli_num_rows($result) > 0) {
-        session_start();
-        $_SESSION['email'] = $email;
-        header("Location: ../views/Admin_Home.php");
-        exit();
-    } else {
-        echo "Invalid email or password";
-    }
-    
-    mysqli_close($conn);
 }
 ?>
+

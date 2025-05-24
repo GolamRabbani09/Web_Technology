@@ -82,7 +82,8 @@ if (isset($_REQUEST["submit"])) {
 
             $targetFile = $uploadDir . $myfile;
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile)) {
-                header("Location: ../views/admin.php");
+                
+                header("Location: ../views/login.php");
                 exit();
             } else {
                 $myfileError = "Failed to save uploaded file.";
@@ -95,3 +96,7 @@ if (isset($_REQUEST["submit"])) {
     }
 }
 ?>
+
+
+
+

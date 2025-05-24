@@ -92,4 +92,3 @@ require "../controller/action.php";
 
 </body>
 </html>
-?>

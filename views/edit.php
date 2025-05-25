@@ -66,6 +66,24 @@ $user = $result['user'];
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($user['id']); ?>">
                 
                 <div class="form-group">
+                    <label>Current Image</label>
+                    <div class="current-image">
+                        <?php if (!empty($user['myfile']) && file_exists("../uploads/" . $user['myfile'])): ?>
+                            <img src="<?php echo "../uploads/" . htmlspecialchars($user['myfile']); ?>" 
+                                alt="Current Profile Image" class="profile-preview">
+                        <?php else: ?>
+                            <span class="no-image">No image available</span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="new_image">Change Image</label>
+                    <input type="file" id="new_image" name="new_image" accept="image/*" class="file-input" onchange="previewImage(this)">
+                    <div id="image-preview" class="preview-container"></div>
+                </div>
+
+                <div class="form-group">
                     <label for="firstname">First Name</label>
                     <input type="text" id="firstname" name="firstname" 
                            value="<?php echo htmlspecialchars($user['firstname']); ?>" required>
@@ -112,5 +130,73 @@ $user = $result['user'];
             </form>
         <?php endif; ?>
     </div>
+
+<script>
+function previewImage(input) {
+    const preview = document.getElementById('image-preview');
+    preview.innerHTML = '';
+
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'profile-preview';
+            preview.appendChild(img);
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+    
+
+
+</script>
+
+<style>
+/* ...existing styles... */
+
+.current-image {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.profile-preview {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #007bff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.preview-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.no-image {
+    display: inline-block;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    color: #6c757d;
+}
+
+.file-input {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    background: #f8f9fa;
+}
+
+.file-input:hover {
+    background: #e9ecef;
+}
+</style>
+
+
 </body>
 </html>

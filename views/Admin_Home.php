@@ -124,7 +124,7 @@ try {
         <h1>Admin Dashboard</h1>
         <div>
             <span>Welcome, <?php echo htmlspecialchars($_SESSION['email']); ?></span>
-            <a href="logout.php" class="logout-btn">Logout</a>
+            <a href="../controller/logout_control.php" class="logout-btn">Logout</a>
         </div>
     </div>
 
@@ -152,12 +152,20 @@ try {
                 <tr>
                     <td><?php echo htmlspecialchars($user['id']); ?></td>
                     <td>
-                        <?php if (!empty($user['myfile']) && file_exists("uploads/" . $user['myfile'])): ?>
-                            <img class="profile-img" src="uploads/<?php echo htmlspecialchars($user['myfile']); ?>" 
-                                 alt="Profile Image">
-                        <?php else: ?>
-                            <span>No Image</span>
-                        <?php endif; ?>
+                        <?php
+                            if (!empty($user['myfile'])) {
+                                $imagePath = "../uploads/" . htmlspecialchars($user['myfile']);
+                                error_log("Checking image path: " . $imagePath);
+                                if (file_exists($imagePath)) {
+                                    echo '<img class="profile-img" src="' . htmlspecialchars($imagePath) . '" alt="Profile Image">';
+                                } else {
+                                    error_log("Image not found at: " . $imagePath);
+                                    echo '<span style="color:gray;">Image not found: ' . htmlspecialchars($imagePath) . '</span>';
+                                }
+                            } else {
+                                echo '<span style="color:gray;">No Image</span>';
+                            }
+                        ?>
                     </td>
                     <td><?php echo htmlspecialchars($user['firstname']); ?></td>
                     <td><?php echo htmlspecialchars($user['surname']); ?></td>

@@ -39,7 +39,7 @@ function getUserById($conn, $id) {
     return mysqli_query($conn, $sql);
 }
 
-function updateUser($conn, $id, $firstname, $surname, $phone, $dob, $address, $email, $event) {
+function updateUser($conn, $id, $firstname, $surname, $phone, $dob, $address, $email, $event, $myfile) {
     $id = mysqli_real_escape_string($conn, $id);
     $firstname = mysqli_real_escape_string($conn, $firstname);
     $surname = mysqli_real_escape_string($conn, $surname);
@@ -48,6 +48,7 @@ function updateUser($conn, $id, $firstname, $surname, $phone, $dob, $address, $e
     $address = mysqli_real_escape_string($conn, $address);
     $email = mysqli_real_escape_string($conn, $email);
     $event = mysqli_real_escape_string($conn, $event);
+    $myfile = mysqli_real_escape_string($conn, $myfile);
 
     $sql = "UPDATE Users SET 
             firstname='$firstname', 
@@ -56,7 +57,8 @@ function updateUser($conn, $id, $firstname, $surname, $phone, $dob, $address, $e
             dob='$dob', 
             address='$address', 
             email='$email', 
-            event='$event' 
+            event='$event',
+            myfile='$myfile'
             WHERE id='$id'";
     
     return mysqli_query($conn, $sql);

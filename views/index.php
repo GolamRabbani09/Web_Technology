@@ -21,7 +21,7 @@
           <a href="login.php" class="btn login-btn">
             <i class="fas fa-sign-in-alt"></i> Login
           </a>
-          <a href="register.php" class="btn register-btn">
+          <a href="Registration_Form.php" class="btn register-btn">
             <i class="fas fa-user-plus"></i> Register
           </a>
         </div>
@@ -37,7 +37,7 @@
             platform
           </p>
           <div class="cta-buttons">
-            <a href="register.php" class="btn primary-btn"
+            <a href="Registration_Form.php" class="btn primary-btn"
               >Start Your Journey</a
             >
             <a href="#features" class="btn secondary-btn">Explore Features</a>
